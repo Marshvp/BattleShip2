@@ -20,6 +20,7 @@ class Ship {
     checkIfSunk(){
         if(this.hits === this.length){
             this.isSunk = true
+            console.log('Ship is sunk');
         }
     }
 }

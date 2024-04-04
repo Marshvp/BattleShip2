@@ -4,7 +4,7 @@ import { Ship } from "./ship.js";
 class GameBoard {
     constructor() {
         this.gridSize = 10;
-        this.board = Array.from({ length: this.gridSize }, () => Array(this.gridSize).fill(null));[];
+        this.board = Array.from({ length: this.gridSize }, () => Array(this.gridSize).fill(null));
         this.ships = [];
         this.missedShots = [];
     }
@@ -15,7 +15,7 @@ class GameBoard {
             for (let i = 0; i < ship.length; i++) {
                 const posX = direction === 'horizontal' ? x + i : x;
                 const posY = direction === 'vertical' ? y + i : y;
-                this.board[posY][posX] = ship;
+                this.board[posY][posX] = { ship, position: i };
                 positions.push({ x: posX, y: posY });
             }
             ship.setPositions(positions);
@@ -43,8 +43,18 @@ class GameBoard {
         return true; // Valid placement
         
     }
+
+    receiveAttack(x, y) {
+        const target = this.board[y][x];
+        if(target) {
+            target.ship.hit(target.position);
+            return true;
+        } else {
+            this.missedShots.push({ x, y });
+            return false;
+        }
+    }
     
 }
 
-
-export default GameBoard
+export default GameBoard;
