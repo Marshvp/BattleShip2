@@ -55,4 +55,29 @@ describe('GameBoard', () => {
         board.receiveAttack(0, 0);
         expect(ship.isSunk).toBe(true);
     });
+
+    test('should correctly record a missed shot', () => {
+        board.receiveAttack(0, 0); // Assume there's no ship at (0,0)
+        expect(board.missedShots).toContainEqual({ x: 0, y: 0 });
+    });
+
+    test('should report false when not all ships are sunk', () => {
+        const ship = new Ship(2);
+        board.placeShip(0, 0, 'horizontal', ship);
+        board.receiveAttack(0, 0); // Hit one part of the ship
+        expect(board.areAllShipsSunk()).toBe(false);
+    });
+
+    test('should report true when all ships are sunk', () => {
+        const ship = new Ship(1); // A ship with length 1 for simplicity
+        board.placeShip(0, 0, 'horizontal', ship);
+        board.receiveAttack(0, 0); // Sinks the ship
+        expect(board.areAllShipsSunk()).toBe(true);
+    });
+
+    test('should not report a missed shot as a hit', () => {
+        board.receiveAttack(0, 0); // Misses since there's no ship at (0,0)
+        expect(board.missedShots).toContainEqual({ x: 0, y: 0 });
+        expect(board.areAllShipsSunk()).toBe(false); // No ships to sink, but checks logic
+    });
 });

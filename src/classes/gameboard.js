@@ -48,11 +48,15 @@ class GameBoard {
         const target = this.board[y][x];
         if(target) {
             target.ship.hit(target.position);
-            return true;
+            return true; //hit
         } else {
             this.missedShots.push({ x, y });
-            return false;
+            return false; //miss
         }
+    }
+
+    checkIfAllShipsSunk() {
+        return this.ships.every(ship => ship.isSunk);
     }
     
 }
