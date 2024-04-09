@@ -30,6 +30,7 @@ class GameBoard {
 
     checkBounds(x, y, direction, length) {
          // Check bounds
+        if (direction === 'null') direction = 'horizontal';
         if (direction === 'horizontal' && (x + length > this.gridSize || y >= this.gridSize)) return false;
         if (direction === 'vertical' && (y + length > this.gridSize || x >= this.gridSize)) return false;
 
@@ -56,6 +57,7 @@ class GameBoard {
     }
 
     checkIfAllShipsSunk() {
+        if (this.ships.length === 0) return false;
         return this.ships.every(ship => ship.isSunk);
     }
     
