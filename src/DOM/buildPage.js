@@ -1,16 +1,16 @@
 import buildGrid from "./buildGrid.js";
-function buildPage() {
+function buildPage(playerBoard, computerBoard) {
     const body = document.querySelector('body');
     // create container
     const container = document.createElement('div');
     container.classList.add('container');
     body.appendChild(container);
 
-    buildContent(container);
+    buildContent(container, playerBoard, computerBoard);
     
 }
 
-function buildContent(container) {
+function buildContent(container, playerBoard, computerBoard) {
 
     // create player content
     const playerContent = document.createElement('div');
@@ -18,7 +18,7 @@ function buildContent(container) {
     container.appendChild(playerContent);
 
     // create grid
-    buildGrid(playerContent);
+    buildGrid(playerContent, playerBoard);
     
 
     // create computer content
@@ -27,7 +27,7 @@ function buildContent(container) {
     container.appendChild(computerContent);
 
     // create grid
-    buildGrid(computerContent);
+    buildGrid(computerContent, computerBoard);
 }
 
 function buildPlayerBoard() {

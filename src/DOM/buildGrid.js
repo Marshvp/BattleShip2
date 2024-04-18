@@ -12,6 +12,15 @@ function buildGrid(content, gameboard) {
             cell.style.width = '2rem';
             cell.style.height = '2rem';
             cell.style.border = '1px solid black';
+            
+            const shipAtCell = gameboard.ships.some(ship => {
+                return ship.positions.some(pos => pos.x === j && pos.y === i);
+            });
+
+            if (shipAtCell) {
+                cell.style.backgroundColor = 'blue'; // Change the color for cells with ships
+            }
+            
 
             grid.appendChild(cell);
         }
